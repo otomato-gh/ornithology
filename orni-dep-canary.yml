@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       labels:
-        run: products
+        run: ornithology
     spec:
       containers:
       - name: ornithology
