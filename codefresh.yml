@@ -13,6 +13,6 @@ steps:
     title: deploy-to-k8s
     image: codefresh/k8s-kubectl
     commands:
-      - sed -i -- "s/BUILD_NUMBER/${{CF_SHORT_REVISION}}/g" orni-dep.yml
+      - sed -i -- "s/BUILD_NUMBER/${{CF_SHORT_REVISION}}/g" ${{DEPLOYMENT_YML}}
       - kubectl config use-context cf-staging@codefresh-staging
-      - kubectl apply -f orni-dep.yml -n otom8
+      - kubectl apply -f ${{DEPLOYMENT_YML}} -n otom8
