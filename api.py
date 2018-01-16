@@ -8,9 +8,9 @@ app.register_blueprint(swagger)
 
 # required. See http://swagger.io/specification/#infoObject for details.
 app.config['SWAGGER_INFO'] = {
-    'title': 'Otomato Products API',
-    'version': '1.2',
-    'description': 'store and retrieve products',
+    'title': 'Otomato Ornithology API',
+    'version': '1.3',
+    'description': 'store and retrieve birf species',
     'termsOfService': 'my terms of service',
     'contact': {
         'name': 'ant.weiss@gmail.com',
@@ -18,7 +18,7 @@ app.config['SWAGGER_INFO'] = {
     },
     'license': {
         'name': 'GPL',
-        'url': 'https://github.com/antweiss/oto-products/blob/master/LICENSE',
+        'url': 'https://github.com/otomato-gh/ornithology/blob/master/LICENSE',
     }
 }
 
