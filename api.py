@@ -33,7 +33,7 @@ def version():
 @app.route('/ping')
 def ping():
     if not hasattr(ping, "latency"):
-        ping.latency = 10
+        ping.latency = 5
     time.sleep(ping.latency)
     if ping.latency > 0:
         ping.latency -= 1
