@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ornithology-canary
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: products
+    spec:
+      containers:
+      - name: ornithology
+        image: otomato/ornithology:canary
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+            httpGet:
+                path: /ping
+                port: 5000
+            initialDelaySeconds: 1
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+  strategy:
+    type: Recreate

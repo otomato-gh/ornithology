@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ornithology:
+    build: .
+    ports:
+      - 5000
+      - 8000
+    links:
+     - mongo
+  mongo:
+    image: mongo
+    ports:
+      - 27017
