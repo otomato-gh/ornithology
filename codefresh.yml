@@ -21,7 +21,7 @@ steps:
     image: codefresh/k8s-kubectl
     commands:
       - kubectl config use-context cf-staging@codefresh-staging
-      - kubectl run e2e --image=otomato/ornithology:tests --attach=true --restart=Never --rm=true --  "/tests/it/canarytest.sh"
+      - kubectl run e2e --image=otomato/ornithology:tests --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/canarytest.sh"
   triggerProdDeployment:
     image: radial/busyboxplus:curl
     commands:
