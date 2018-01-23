@@ -5,7 +5,7 @@ steps:
     description: Builds my service
     image_name: otomato/ornithology
     tag: ${{CF_SHORT_REVISION}}
-  pushTheImage:
+  pushAppImage:
     type: push
     candidate: ${{buildAppImage}}
     tag: ${{CF_SHORT_REVISION}}
@@ -14,6 +14,10 @@ steps:
     description: Builds image with tests
     dockerfile: Dockerfile.test
     image_name: otomato/ornitest
+    tag: ${{CF_SHORT_REVISION}}
+  pushTestImage:
+    type: push
+    candidate: ${{buildTestImage}}
     tag: ${{CF_SHORT_REVISION}}
   deployToK8s:
     title: deploy-to-k8s
