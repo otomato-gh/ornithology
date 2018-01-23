@@ -31,12 +31,12 @@ steps:
     image: codefresh/k8s-kubectl
     commands:
       - kubectl config use-context cf-staging@codefresh-staging
-      - kubectl run e2e --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/canarytest.sh"
+      - kubectl run e2e --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/canarytest.sh"
   verifyCanaryInProd:
     title: testCanary
     image: codefresh/k8s-kubectl
     commands:
-     - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/version_verify.sh"
+     - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/version_verify.sh"
   triggerProdDeployment:
     image: radial/busyboxplus:curl
     commands:
