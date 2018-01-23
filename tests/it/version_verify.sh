@@ -4,6 +4,7 @@ version=test
 count=100
 while [ $canary_version != $version ];
  do version=$(curl http://ornithology:5000/version)
+ echo canary is $canary_version
  echo version is $version
  sleep 1
  count=$(( count-1 ))
