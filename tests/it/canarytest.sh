@@ -13,4 +13,4 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 #else - run component test
-/tests/ct/run.sh
+/usr/src/app/tests/ct/run.sh
