@@ -36,6 +36,7 @@ steps:
     title: testCanary
     image: codefresh/k8s-kubectl
     commands:
+     - kubectl get pod $(kubectl get pods | grep canary | cut -d ' '  -f 1) run=ornithology
      - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/version_verify.sh"
   triggerProdDeployment:
     image: radial/busyboxplus:curl
