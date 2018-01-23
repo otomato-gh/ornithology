@@ -25,4 +25,4 @@ steps:
   triggerProdDeployment:
     image: radial/busyboxplus:curl
     commands:
-      - deployprod.sh
+      - ./deployprod.sh
