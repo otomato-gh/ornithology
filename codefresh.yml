@@ -22,9 +22,6 @@ steps:
     commands:
       - kubectl config use-context cf-staging@codefresh-staging
       - kubectl run e2e --image=otomato/ornithology:tests --attach=true --restart=Never --rm=true --  "/tests/it/canarytest.sh"
-    on_fail:
-      commands:
-        - kubectl delete -f orni-dep-canary.yml -n otom8
   triggerProdDeployment:
     image: radial/busyboxplus:curl
     commands:
