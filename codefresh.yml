@@ -13,6 +13,16 @@ steps:
     title: deploy-to-k8s
     image: codefresh/k8s-kubectl
     commands:
-      - sed -i -- "s/BUILD_NUMBER/${{CF_SHORT_REVISION}}/g" ${{DEPLOYMENT_YML}}
+      - sed -i -- "s/BUILD_NUMBER/${{CF_SHORT_REVISION}}/g" orni-dep-canary.yml
       - kubectl config use-context cf-staging@codefresh-staging
-      - kubectl apply -f ${{DEPLOYMENT_YML}} -n otom8
+      - kubectl apply -f orni-dep-canary.yml -n otom8
+  testCanary:
+    title: testCanary
+    image: codefresh/k8s-kubectl
+    commands:
+      - kubectl config use-context cf-staging@codefresh-staging
+      - kubectl run e2e --image=otomato/ornithology:tests --attach=true --restart=Never --rm=true --  "/tests/it/canarytest.sh"
+  triggerProdDeployment:
+    image: radial/busyboxplus:curl
+    commands:
+      - curl 'https://g.codefresh.io/api/builds/5a5e15cc8aced0000153ba08' -H 'content-type:application/json; charset=utf-8'  -H 'x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmVlOGYwY2FiNzkwYjA2MDAyODEzYzciLCJhY2NvdW50SWQiOiI1NmVlOGYwY2FiNzkwYjA2MDAyODEzYzgiLCJpYXQiOjE1MTQ5ODAzMDYsImV4cCI6MTUxNzU3MjMwNn0.mhncdiwdbXaCL6BRBbpvtWWyO0apzL_F_adxky8qri4' --data-binary  '{"repoOwner":"otomato-gh","repoName":"ornithology","serviceId":"5a5e15cc8aced0000153ba08","branch":"master","type":"build"}' --compressed

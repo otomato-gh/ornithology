@@ -1,0 +1,3 @@
+FROM radial/busyboxplus:curl
+ADD ./tests /tests
+WORKDIR /tests
