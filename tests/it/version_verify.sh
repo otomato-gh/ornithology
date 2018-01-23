@@ -1,5 +1,5 @@
 #! /bin/sh
-canary_version=$(grep \'version\': /usr/src/app/api.py | cut -d \' -f 4)
+canary_version=$(grep \'version\': /tests/api.py | cut -d \' -f 4)
 version=test
 count=100
 while [ $canary_version != $version ];

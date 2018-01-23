@@ -1,13 +1,19 @@
 version: '1.0'
 steps:
-  buildTheImage:
+  buildAppImage:
     type: build
     description: Builds my service
     image_name: otomato/ornithology
     tag: ${{CF_SHORT_REVISION}}
   pushTheImage:
     type: push
-    candidate: ${{buildTheImage}}
+    candidate: ${{buildAppImage}}
+    tag: ${{CF_SHORT_REVISION}}
+  buildTestImage:
+    type: build
+    description: Builds image with tests
+    dockerfile: Dockerfile.test
+    image_name: otomato/ornitest
     tag: ${{CF_SHORT_REVISION}}
   deployToK8s:
     title: deploy-to-k8s
@@ -21,12 +27,12 @@ steps:
     image: codefresh/k8s-kubectl
     commands:
       - kubectl config use-context cf-staging@codefresh-staging
-      - kubectl run e2e --image=otomato/ornithology:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/canarytest.sh"
+      - kubectl run e2e --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/canarytest.sh"
   verifyCanaryInProd:
     title: testCanary
     image: codefresh/k8s-kubectl
     commands:
-     - kubectl run verify --image=otomato/ornithology:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/version_verify.sh"
+     - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/usr/src/app/tests/it/version_verify.sh"
   triggerProdDeployment:
     image: radial/busyboxplus:curl
     commands:
