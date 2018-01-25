@@ -33,7 +33,7 @@ steps:
       - kubectl config use-context cf-staging@codefresh-staging
       - kubectl run e2e --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/canarytest.sh"
   verifyCanaryInProd:
-    title: testCanary
+    title: verifyCanaryInProd
     image: codefresh/k8s-kubectl
     commands:
      - kubectl config use-context cf-staging@codefresh-staging
@@ -41,6 +41,6 @@ steps:
      - kubectl label pod $PODNAME run=ornithology -n otom8
      - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/version_verify.sh"
   triggerProdDeployment:
-    image: radial/busyboxplus:curl
+    image: codefresh/cli:latest
     commands:
-      - ./deployprod.sh
+      - codefresh run 5a5e15cc8aced0000153ba08 -b master
