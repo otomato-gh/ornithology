@@ -1,14 +1,5 @@
 version: '1.0'
 steps:
-  buildTheImage:
-    type: build
-    description: Builds my service
-    image_name: otomato/ornithology
-    tag: ${{CF_SHORT_REVISION}}
-  pushTheImage:
-    type: push
-    candidate: ${{buildTheImage}}
-    tag: ${{CF_SHORT_REVISION}}
   deployToK8s:
     title: deploy-to-k8s
     image: codefresh/k8s-kubectl

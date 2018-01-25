@@ -3,14 +3,16 @@ kind: Service
 metadata:
   name: ornithology
   labels:
-    run: ornithology
+    app: ornithology
+    production: true
 spec:
   ports:
     - port: 5000
       protocol: TCP
       targetPort: 5000
   selector:
-      run: ornithology
+      app: ornithology
+      production: true
   type: LoadBalancer
   loadBalancerSourceRanges:
   - 0.0.0.0/0
@@ -24,7 +26,8 @@ spec:
   template:
     metadata:
       labels:
-        run: ornithology
+        app: ornithology
+        production: true
     spec:
       containers:
       - name: ornithology
