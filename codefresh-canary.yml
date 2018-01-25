@@ -38,7 +38,7 @@ steps:
     commands:
      - kubectl config use-context cf-staging@codefresh-staging
      - export PODNAME=`kubectl get pods -n otom8 | grep canary | cut -d ' '  -f 1`
-     - kubectl label pod $PODNAME app=ornithology production=true -n otom8
+     - kubectl label pod $PODNAME app=ornithology production=ready -n otom8
      - kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/version_verify.sh"
   triggerProdDeployment:
     image: codefresh/cli:latest

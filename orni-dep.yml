@@ -4,7 +4,7 @@ metadata:
   name: ornithology
   labels:
     app: ornithology
-    production: true
+    production: ready
 spec:
   ports:
     - port: 5000
@@ -12,7 +12,7 @@ spec:
       targetPort: 5000
   selector:
       app: ornithology
-      production: true
+      production: ready
   type: LoadBalancer
   loadBalancerSourceRanges:
   - 0.0.0.0/0
@@ -27,7 +27,7 @@ spec:
     metadata:
       labels:
         app: ornithology
-        production: true
+        production: ready
     spec:
       containers:
       - name: ornithology

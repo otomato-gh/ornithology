@@ -9,7 +9,7 @@ app.register_blueprint(swagger)
 # required. See http://swagger.io/specification/#infoObject for details.
 app.config['SWAGGER_INFO'] = {
     'title': 'Otomato Ornithology API',
-    'version': '1.5',
+    'version': '1.6',
     'description': 'store and retrieve birf species',
     'termsOfService': 'my terms of service',
     'contact': {
