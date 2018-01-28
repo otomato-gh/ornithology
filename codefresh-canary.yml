@@ -53,11 +53,12 @@ steps:
      - kubectl label pod $PODNAME app=ornithology production=ready -n otom8
      - export CANARY_EXIT_FLAG=`kubectl run verify --image=otomato/ornitest:${{CF_SHORT_REVISION}} --attach=true --restart=Never --rm=true -n=otom8 --  "/tests/it/version_verify.sh"`
      - cf_export CANARY_EXIT_FLAG=$CANARY_EXIT_FLAG
-  title: rollbackCanary
+  rollbackCanary:
+    title: rollbackCanary
     image: codefresh/k8s-kubectl
     commands:
-     - echo "Canary didn't pass isolation gate. Rolling back"
-     - kubectl delete -f orni-dep-canary.yml -n otom8
+      - echo "Canary didn't pass isolation gate. Rolling back"
+      - kubectl delete -f orni-dep-canary.yml -n otom8
     when:
       condition:
         all:
